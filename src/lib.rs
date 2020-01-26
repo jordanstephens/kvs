@@ -1,6 +1,10 @@
 #![deny(missing_docs)]
 //! A simple key/value store.
-pub use kv::KvStore;
-pub use kv::Result;
 
+pub use error::{KvError, Result};
+pub use kv::KvStore;
+
+mod error;
 mod kv;
+mod kvreader;
+mod kvwriter;
