@@ -16,7 +16,7 @@ impl KvWriter {
       .write(true)
       .append(true)
       .open(&path)?;
-    let pos = file.seek(SeekFrom::Current(0))?;
+    let pos = file.seek(SeekFrom::End(0))?;
     let writer = BufWriter::new(file);
     Ok(KvWriter { writer, pos })
   }

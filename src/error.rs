@@ -1,3 +1,4 @@
+use glob;
 use std::io;
 
 /// KvError
@@ -12,6 +13,8 @@ pub enum KvError {
   /// Unexpected action error.
   /// It indicated a corrupted log or a program bug.
   UnexpectedAction,
+  /// Unable to glob dirpath error
+  PatternError(glob::PatternError),
 }
 
 impl From<io::Error> for KvError {
@@ -23,6 +26,12 @@ impl From<io::Error> for KvError {
 impl From<serde_json::Error> for KvError {
   fn from(err: serde_json::Error) -> KvError {
     KvError::Serde(err)
+  }
+}
+
+impl From<glob::PatternError> for KvError {
+  fn from(err: glob::PatternError) -> KvError {
+    KvError::PatternError(err)
   }
 }
 
